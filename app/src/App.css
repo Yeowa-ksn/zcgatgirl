@@ -192,3 +192,73 @@ body.dark .weekly-summary {
   display: block;
   margin: 0 auto;
 }
+
+.email-preview-box {
+  background-color: #fff0f5;
+  border: 1px dashed #ff6b81;
+  padding: 1rem;
+  margin: 1rem auto;
+  border-radius: 10px;
+  max-width: 400px;
+  position: relative;
+}
+
+.avatar {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.quote-text {
+  font-style: italic;
+  font-weight: bold;
+  color: #e55b73;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* 너의 목표 피드 */
+.goal-feed {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #3c2062; /* 어두운 보라 배경 */
+  border-radius: 10px;
+}
+
+.goal-feed h2 {
+  color: #f8eaff; /* 밝은 보라 흰색 */
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.goal-feed-card {
+  background-color: #4b2a74;
+  color: #ffffff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.goal-feed-card h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+}
+
+.goal-feed-card .goal-reason,
+.goal-feed-card .goal-start,
+.goal-feed-card .goal-percent {
+  font-size: 0.9rem;
+  color: #f0d0ff;
+  margin-bottom: 0.2rem;
+}
+
+.goal-feed-card .motivation-quote {
+  font-style: italic;
+  color: #ffc2d1;
+  margin-top: 0.6rem;
+}
+
+.goal-feed-card .heatmap {
+  margin-top: 1rem;
+}

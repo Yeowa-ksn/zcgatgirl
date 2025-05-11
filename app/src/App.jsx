@@ -10,6 +10,7 @@ import MotivationQuote from "./components/MotivationQuote";
 import EmailReminder from "./components/EmailReminder";
 import { auth } from "./firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
+import GoalFeed from "./components/GoalFeed";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -38,6 +39,7 @@ function App() {
         <>
           <GoalForm onGoalAdded={handleGoalAdded} />
           <GoalList onSelectGoal={handleGoalSelected} />
+          <GoalFeed />
           {selectedGoalId && (
             <>
               <StatusImage goalId={selectedGoalId} />

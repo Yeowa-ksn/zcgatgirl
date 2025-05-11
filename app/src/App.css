@@ -1,130 +1,91 @@
-/* 기본 앱 컨테이너 정렬 */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Pretendard", sans-serif;
+  background-color: #0b1e3a; /* 어두운 파랑 배경 */
+  color: #f0f0f0;
+}
+
+body.dark {
+  background-color: #000b1a;
+  color: #eee;
+}
+
 .App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: #111;
-  color: #fff;
-  font-family: 'Helvetica', sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-/* 공통 타이틀 */
 .title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: bold;
-  margin-bottom: 20px;
-  color: hotpink;
-  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #ff6b81;
 }
 
-/* 로그인/회원가입/목표 작성 공통 박스 */
-.auth-form-container,
-.goal-form-container {
-  background-color: #222;
-  padding: 30px 40px;
-  border-radius: 15px;
-  box-shadow: 0 0 15px hotpink;
-  width: 320px;
-  text-align: center;
+input[type="text"] {
+  width: 80%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background-color: #1e2b44;
+  color: #f0f0f0;
 }
 
-/* 입력 필드 */
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 5px;
-  background-color: #333;
-  color: #fff;
-}
-
-/* 버튼 스타일 */
 button {
-  width: 100%;
-  padding: 10px;
-  background-color: hotpink;
+  margin: 4px;
+  padding: 8px 14px;
+  background-color: #ff6b81;
+  color: white;
   border: none;
-  border-radius: 5px;
-  color: #fff;
-  font-weight: bold;
-  margin-top: 10px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 button:hover {
-  background-color: #ff4fa6;
+  background-color: #ff4757;
 }
 
-/* 전환 버튼 (로그인/회원가입) */
-.toggle-button {
-  background-color: #444;
-  margin-top: 10px;
+.goal-form-container,
+.goal-list-container,
+.email-reminder,
+.motivation-quote,
+.weekly-summary {
+  background-color: #142c4c;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 10px;
 }
 
-/* 히트맵 헤더 */
-.heatmap-container {
-  margin-top: 40px;
-}
-
-/* 히트맵 색상 정의 */
-.color-empty {
-  fill: #333;
-}
-.color-filled {
-  fill: hotpink;
-}
-
-/* 히트맵 색상 클래스 */
-.color-empty {
-  fill: #2e2e2e;
-}
-.color-done {
-  fill: #ff1493;
-}
-.color-fail {
-  fill: #888;
-}
-
-/* 히트맵 컨테이너 */
-.heatmap-container {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.character-image {
-  width: 150px;
-  margin: 15px auto;
-  display: block;
-}
-
-.user-info {
-  background-color: #1e1e1e;
-  padding: 8px 20px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  color: #ccc;
-  text-align: center;
-}
-
-/* 다크모드 테마 적용 */
-body.dark {
-  background-color: #111;
+body.dark .goal-form-container,
+body.dark .goal-list-container,
+body.dark .email-reminder,
+body.dark .motivation-quote,
+body.dark .weekly-summary {
+  background-color: #0e1a2e;
   color: #fff;
 }
 
-/* 라이트모드 기본 */
-body {
-  background-color: #fff;
-  color: #111;
+.goal-item {
+  margin-top: 12px;
+  padding: 8px;
+  border-top: 1px solid #444;
 }
 
-/* 버튼 */
+.motivation-quote {
+  margin: 1.5rem auto;
+  font-size: 1rem;
+  font-style: italic;
+  color: #ffc2d1;
+  text-align: center;
+  padding: 0.8rem;
+}
+
 .theme-toggle {
   position: absolute;
   top: 10px;
@@ -132,7 +93,7 @@ body {
 }
 
 .theme-toggle button {
-  background-color: #555;
+  background-color: #444;
   color: #fff;
   border: none;
   padding: 6px 12px;
@@ -140,10 +101,94 @@ body {
   cursor: pointer;
 }
 
-.motivation-quote {
-  margin-top: 25px;
-  font-style: italic;
-  color: #ffb6c1;
+.goal-list-container {
+  margin: 2rem 0;
+  background-color: #1b355c;
+  padding: 1rem;
+  border-radius: 8px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.goal-card {
+  background-color: #223b61;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  text-align: left;
+}
+
+.goal-card strong {
+  color: #eee;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.button-group button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.button-group button:nth-child(1) {
+  background-color: #ff69b4;
+}
+
+.button-group button:nth-child(2) {
+  background-color: #888;
+}
+
+.button-group button:nth-child(3) {
+  background-color: #dc3545;
+}
+
+.heatmap {
+  margin-top: 1.5rem;
+}
+
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+  max-width: 240px;
+  margin: 10px auto 0;
+  gap: 6px;
+}
+
+.heatmap-cell {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background-color: #333;
+}
+
+.heatmap-cell.done {
+  background-color: #ff69b4;
+}
+
+.heatmap-cell.not {
+  background-color: #888;
+}
+
+.heatmap-cell.none {
+  background-color: #555;
+}
+
+.status-image {
+  margin: 1rem auto;
   text-align: center;
-  font-size: 1rem;
+}
+
+.status-image img {
+  display: block;
+  margin: 0 auto;
 }

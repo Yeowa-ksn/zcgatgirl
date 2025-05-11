@@ -1,85 +1,59 @@
 // src/components/Heatmap.jsx
 import React, { useEffect, useState } from "react";
-import CalendarHeatmap from "react-calendar-heatmap";
-import "react-calendar-heatmap/dist/styles.css";
+import { db, auth } from "../firebase/config";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { auth, db } from "../firebase/config";
 import { subDays, format } from "date-fns";
-import "../App.css";
 
-const Heatmap = ({ goalId, startDate }) => {
-  const [heatmapData, setHeatmapData] = useState([]);
-  const [completionRate, setCompletionRate] = useState(0);
-  const [characterImage, setCharacterImage] = useState("stage1.png");
+const Heatmap = ({ goalId }) => {
+  const [data, setData] = useState({});
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchRecords = async () => {
       const user = auth.currentUser;
-      if (!user || !goalId || !startDate) return;
-
-      const endDate = new Date();
-      const start = new Date(startDate.toDate());
-      const recordRef = collection(db, "records");
+      if (!user || !goalId) return;
 
       const q = query(
-        recordRef,
+        collection(db, "records"),
         where("userId", "==", user.uid),
         where("goalId", "==", goalId)
       );
       const snapshot = await getDocs(q);
 
-      const result = [];
-      for (let d = new Date(start); d <= endDate; d.setDate(d.getDate() + 1)) {
-        const dateStr = format(new Date(d), "yyyy-MM-dd");
-        result.push({ date: dateStr, count: 0 });
-      }
-
-      let doneCount = 0;
-      snapshot.forEach((doc) => {
-        const { date, status } = doc.data();
-        const index = result.findIndex((item) => item.date === date);
-        if (index !== -1) {
-          result[index].count = status === "done" ? 1 : 2;
-          if (status === "done") doneCount++;
-        }
+      const result = {};
+      snapshot.docs.forEach((doc) => {
+        const record = doc.data();
+        result[record.date] = record.status;
       });
 
-      setHeatmapData(result);
-
-      const rate = Math.round((doneCount / result.length) * 100);
-      setCompletionRate(rate);
-
-      if (rate >= 80) setCharacterImage("stage5.png");
-      else if (rate >= 60) setCharacterImage("stage4.png");
-      else if (rate >= 40) setCharacterImage("stage3.png");
-      else if (rate >= 20) setCharacterImage("stage2.png");
-      else setCharacterImage("stage1.png");
+      setData(result);
     };
 
-    fetchData();
-  }, [goalId, startDate]);
+    fetchRecords();
+  }, [goalId]);
 
+  // 최근 30일 날짜 만들기
   const today = new Date();
+  const last30 = Array.from({ length: 30 }, (_, i) => {
+    const date = subDays(today, i);
+    const key = format(date, "yyyy-MM-dd");
+    return {
+      date: key,
+      status: data[key] || "none",
+    };
+  }).reverse();
 
   return (
-    <div className="heatmap-container">
-      <h3>🔥 목표 달성 히트맵</h3>
-      <img
-        src={`/assets/${characterImage}`}
-        alt="캐릭터 이미지"
-        className="character-image"
-      />
-      <p>현재 달성률: {completionRate}%</p>
-      <CalendarHeatmap
-        startDate={subDays(today, 30)}
-        endDate={today}
-        values={heatmapData}
-        classForValue={(value) => {
-          if (!value || !value.count) return "color-empty";
-          return value.count === 1 ? "color-done" : "color-fail";
-        }}
-        showWeekdayLabels
-      />
+    <div className="heatmap">
+      <h3>최근 30일 히트맵</h3>
+      <div className="heatmap-grid">
+        {last30.map(({ date, status }) => (
+          <div
+            key={date}
+            className={`heatmap-cell ${status}`}
+            title={`${date} - ${status}`}
+          ></div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -1,43 +1,31 @@
 // src/components/EmailReminder.jsx
-import React, { useEffect, useState } from "react";
-import { auth, db } from "../firebase/config";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import React, { useState } from "react";
+import { auth } from "../firebase/config";
 
 const EmailReminder = () => {
-  const [email, setEmail] = useState("");
-  const [goal, setGoal] = useState("");
+  const [sent, setSent] = useState(false);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const user = auth.currentUser;
-      if (!user) return;
+  const sendEmail = async () => {
+    const user = auth.currentUser;
 
-      setEmail(user.email);
+    if (!user || !user.email) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
 
-      const goalsRef = collection(db, "goals");
-      const q = query(goalsRef, where("userId", "==", user.uid));
-      const snapshot = await getDocs(q);
-
-      if (!snapshot.empty) {
-        const goalData = snapshot.docs[0].data();
-        setGoal(goalData.goal);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
-  const handleSendReminder = () => {
-    // 실제 메일 전송 로직은 Firebase Functions 또는 외부 API 필요
-    alert(`(예시) ${email}에게 "${goal}" 목표 알림 메일을 보냅니다.`);
+    // 실제 이메일 전송이 아닌 시뮬레이션
+    console.log(`이메일 전송 대상: ${user.email}`);
+    alert(`동기부여 이메일이 ${user.email}로 전송되었습니다!`);
+    setSent(true);
   };
 
   return (
     <div className="email-reminder">
-      <h3>📧 목표 리마인더 메일</h3>
-      <p>이메일: {email}</p>
-      <p>목표: {goal}</p>
-      <button onClick={handleSendReminder}>메일 알림 보내기</button>
+      <h3>메일 알림</h3>
+      <p>하루 목표를 깜빡하지 않도록 이메일로 리마인드!</p>
+      <button onClick={sendEmail} disabled={sent}>
+        {sent ? "이미 전송됨!" : "메일 보내기"}
+      </button>
     </div>
   );
 };

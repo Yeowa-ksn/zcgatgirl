@@ -37,12 +37,12 @@ const StatusImage = ({ goalId }) => {
   }, [goalId]);
 
   const getImageForRate = () => {
-    if (percentage === null) return "/src/assets/level3_soso.png"; // 신규 사용자
-    if (percentage >= 80) return "/src/assets/level1_happy.png";
-    if (percentage >= 55) return "/src/assets/level2_good.png";
-    if (percentage >= 40) return "/src/assets/level3_soso.png";
-    if (percentage >= 20) return "/src/assets/level4_bad.png";
-    return "/src/assets/level5_melt.png";
+    if (percentage === null) return "/assets/level3_soso.png"; // 신규 사용자
+    if (percentage >= 80) return "/assets/level1_happy.png";
+    if (percentage >= 55) return "/assets/level2_good.png";
+    if (percentage >= 40) return "/assets/level3_soso.png";
+    if (percentage >= 20) return "/assets/level4_bad.png";
+    return "/assets/level5_melt.png";
   };
 
   return (

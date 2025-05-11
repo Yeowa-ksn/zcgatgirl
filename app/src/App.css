@@ -194,13 +194,14 @@ body.dark .weekly-summary {
 }
 
 .email-preview-box {
-  background-color: #fff0f5;
+  background-color: #1e1e2f;  /* 어두운 남색 계열 배경 */
   border: 1px dashed #ff6b81;
   padding: 1rem;
   margin: 1rem auto;
   border-radius: 10px;
   max-width: 400px;
   position: relative;
+  color: #fefefe; /* 전체 텍스트 색상 */
 }
 
 .avatar {
@@ -211,9 +212,12 @@ body.dark .weekly-summary {
 .quote-text {
   font-style: italic;
   font-weight: bold;
-  color: #e55b73;
-  font-size: 1rem;
+  color: #111; /* 거의 검정 */
+  background-color: #ffe8ee;
+  font-size: 1.2rem;
   text-align: center;
+  padding: 1rem;
+  border-radius: 10px;
 }
 
 /* 너의 목표 피드 */

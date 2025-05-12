@@ -45,7 +45,7 @@ If you are developing a production application, we recommend using TypeScript wi
 - [ ] 목표 피드의 배경/텍스트 대비 향상
 
 ### 기능 추가 예정
-- [ ] 이메일 자동 발송 기능 (Firebase Functions 활용 예정)
+- [ ] 이메일 자동 발송 기능 (요금제로 인해 Mailersend + 스프레드시트 App script 활용 예정)
 - [ ] 목표 달성률 기반 메일링 로직 개선
 - [ ] 사용자 주간 리포트 자동 생성
 
